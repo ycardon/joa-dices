@@ -1,3 +1,6 @@
+/**
+ * DICE by Yann Cardon, 2019
+ */
 abstract class Dice {
     result: Map<Face, number> = new Map
     abstract faces(): Face[]
@@ -6,7 +9,7 @@ abstract class Dice {
         this.roll()
     }
     roll(): Dice {
-        let roll = this.faces()[Math.floor(Math.random() * this.faces.length)]
+        let roll = this.faces()[Math.floor(Math.random() * this.faces().length)]
         if (roll) // if the dice has faces 
             this.result.set(roll, (this.result.get(roll) || 0) + 1)
         console.debug(this.constructor.name, "rolled a", this.result)
@@ -24,7 +27,7 @@ abstract class Dice {
             if (sum != 0) result.set(f, sum)
         })
         this.result = result
-        console.debug('dice sum is', this.result)
+        console.debug(this.constructor.name, 'sum is', this.result)
         return this
     }
 }
@@ -36,11 +39,11 @@ class Dices extends Dice {
 // --- Time of Legend, Joan of Arc ---
 
 enum Face {
-    Kill = "Kill",
-    Disrupt = "Disrupt",
-    Push = "Push",
-    Shield = "Shield",
-    Blank = "Blank"
+    Kill = "Tué",
+    Disrupt = "Hors combat",
+    Push = "Poussé",
+    Shield = "Bouclier",
+    Blank = "Vide"
 }
 
 const AllFaces = [
@@ -116,3 +119,12 @@ set.add(b)
 set.add(b)
 
 new Dices().add(new BlackDice).add(new RedDice).add(new WhiteDice)
+
+let r = new RedDice
+r.roll()
+r.roll()
+r.roll()
+r.roll()
+r.roll()
+r.roll()
+r.roll()
