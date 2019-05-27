@@ -1,7 +1,7 @@
 /**
  * DICE by Yann Cardon, 2019
  */
-abstract class Dice {
+export abstract class Dice {
     result: Map<Face, number> = new Map
     abstract faces(): Face[]
     constructor() {
@@ -21,18 +21,24 @@ abstract class Dice {
         return this
     }
     add(other: Dice): Dice {
-        let result = new Map
         AllFaces.map(f => {
             let sum = (this.result.get(f) || 0) + (other.result.get(f) || 0)
-            if (sum != 0) result.set(f, sum)
+            if (sum != 0) this.result.set(f, sum)
         })
-        this.result = result
         console.debug(this.constructor.name, 'sum is', this.result)
         return this
     }
+    show() {
+        let show = this.constructor.name + ': '
+        Array.from(this.result, ([face, number]) => {
+            show += face + '=' + number + ' '
+        })  
+        console.debug(show)
+        return show
+    }
 }
 
-class Dices extends Dice {
+export class Dices extends Dice {
     faces() {return []}
 }
 
@@ -54,7 +60,7 @@ const AllFaces = [
     Face.Blank,
 ]
 
-class BlackDice extends Dice {
+export class BlackDice extends Dice {
     faces() {return[
         Face.Kill,
         Face.Disrupt,
@@ -65,7 +71,7 @@ class BlackDice extends Dice {
     ]}
 }
 
-class RedDice extends Dice {
+export class RedDice extends Dice {
     faces() {return[
         Face.Kill,
         Face.Disrupt,
@@ -76,7 +82,7 @@ class RedDice extends Dice {
     ]}
 }
 
-class YellowDice extends Dice {
+export class YellowDice extends Dice {
     faces() {return[
         Face.Blank,
         Face.Disrupt,
@@ -87,7 +93,7 @@ class YellowDice extends Dice {
     ]}
 }
 
-class WhiteDice extends Dice {
+export class WhiteDice extends Dice {
     faces() {return[
         Face.Shield,
         Face.Blank,
@@ -97,34 +103,3 @@ class WhiteDice extends Dice {
         Face.Shield,
     ]}
 }
-
-// --- have fun ---
-
-let b = new BlackDice
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-b.roll()
-
-let set = new Dices
-set.add(b)
-set.add(b)
-set.add(b)
-
-new Dices().add(new BlackDice).add(new RedDice).add(new WhiteDice)
-
-let r = new RedDice
-r.roll()
-r.roll()
-r.roll()
-r.roll()
-r.roll()
-r.roll()
-r.roll()
