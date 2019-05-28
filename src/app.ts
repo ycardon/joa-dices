@@ -1,3 +1,6 @@
+// Yann CARDON 2019
+// Time of Legend, Joan of Arc dice rolls
+
 import { Dice, EmptyDice, BlackDice, RedDice, YellowDice, WhiteDice, Face, GiganticDice, DoomDice } from "./dice";
 
 /** parse CLI and roll dices */

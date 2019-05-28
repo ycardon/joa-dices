@@ -1,13 +1,14 @@
 {
   "name": "joa-dices",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "a CLI and library for dice rolls in Time of Legends: Joan of Arc",
+  "main": "./bin/cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "author": "Yann Cardon",
+  "author": "Yann Cardon <ycardon@gmail.com>",
+  "repository": "ycardon/joa-dices",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^12.0.2",
