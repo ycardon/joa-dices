@@ -154,5 +154,3 @@ export class GiganticDice extends Dice {
         Face.Push,
     ]
 }
-
-console.log((new GiganticDice().add(new BlackDice).roll().roll()).result)
