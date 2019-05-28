@@ -1,4 +1,4 @@
-import { Dice, EmptyDice, BlackDice, RedDice, YellowDice, WhiteDice, Face, GiganticDice } from "./dice";
+import { Dice, EmptyDice, BlackDice, RedDice, YellowDice, WhiteDice, Face, GiganticDice, DoomDice } from "./dice";
 
 console.debug = (..._: any[]) => {}
 
@@ -43,7 +43,12 @@ command.map(arg => {
         case 'g':
             addAttackOrDefense(roll(new GiganticDice, times))
             break
-            
+        
+        case 'D':
+        case 'd':
+            addAttackOrDefense(roll(new DoomDice, times))
+            break
+
         default:
             console.error('bad syntax')
             process.exit(-1)

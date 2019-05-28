@@ -24,7 +24,7 @@ export abstract class Dice {
         return this
     }
 
-    /** add an other dice result, keep the faces of the dice */
+    /** add an other dice result (does not change the faces of the dice) */
     add(other: Dice): Dice {
         Faces.map(f => {
             let sum = (this.result.get(f) || 0) + (other.result.get(f) || 0)
@@ -34,13 +34,13 @@ export abstract class Dice {
         return this
     }
 
-    show() { // TODO
-        let show = this.constructor.name + ': '
+    toJSON() { // TODO
+        let dice = {type: this.constructor.name, result: {}}
         Array.from(this.result, ([face, number]) => {
-            show += face + '=' + number + ' ' // TODO
+        //    dice.result[face] = number
         })  
-        console.debug(show)
-        return show
+        console.debug(dice)
+        return dice
     }
 
     /** remove faces (blank, shields... for instance) from the dice result */
@@ -89,7 +89,10 @@ export enum Face {
     Push = 'Recul',
     Shield = 'Bouclier',
     Blank = 'Vide',
-    Trample = 'Piétinement'
+    Trample = 'Piétinement',
+    Death = 'Mort',
+    Rally = 'Ralliement',
+    DelayedRally = 'Ralliement différé',
 }
 
 /** an array of all the dice faces */
@@ -152,5 +155,17 @@ export class GiganticDice extends Dice {
         Face.Trample,
         Face.Trample,
         Face.Push,
+    ]
+}
+
+/** a doom dice */
+export class DoomDice extends Dice {
+    faces = [
+        Face.Disrupt,
+        Face.Rally,
+        Face.DelayedRally,
+        Face.Rally,
+        Face.Death,
+        Face.Death,
     ]
 }
