@@ -1,18 +1,21 @@
-import { Dice, Dices, BlackDice, RedDice, YellowDice, WhiteDice } from "./dice";
+import { Dice, EmptyDice, BlackDice, RedDice, YellowDice, WhiteDice, Face, GiganticDice } from "./dice";
 
 console.debug = (..._: any[]) => {}
 
 let command = process.argv.slice(2)
-let attack = new Dices
-let defense = new Dices
-let final = new Dices
+
+let attack = new EmptyDice
+let defense = new EmptyDice
+let final = new EmptyDice
 let isDefence = false
 
 command.map(arg => {
-    let times = arg.substr(1)
-    switch (arg.substring(0,1)) {
+    let times = arg.slice(0, -1)
+    switch (arg.slice(-1)) {
 
         case '-':
+        case '/':
+        case ':':
             isDefence = true
             break
 
@@ -35,29 +38,37 @@ command.map(arg => {
         case 'b':
             addAttackOrDefense(roll(new WhiteDice, times))
             break
-        
+
+        case 'G':
+        case 'g':
+            addAttackOrDefense(roll(new GiganticDice, times))
+            break
+            
         default:
+            console.error('bad syntax')
+            process.exit(-1)
     }
 })
 
 console.log('attaque :', attack.result)
+
 if (isDefence) {
     console.log('defense :', defense.result)
+    final.add(attack).applyDefense(defense).filter(Face.Blank).filter(Face.Shield)
+    console.log('> final :', final.result)    
 }
 
 
 // HELPERS
 
 function addAttackOrDefense(dice: Dice) {
-    if (isDefence)
-        defense.add(dice)
-    else
-        attack.add(dice)
+    if (isDefence) defense.add(dice)
+    else attack.add(dice)
 }
 
 function roll(dice: Dice, timesAsString: string): Dice {
-    let n = parseInt(timesAsString)
-    for (let i=1; i<n; i++) {
+    let n = (timesAsString == '') ? 1 : parseInt(timesAsString)
+    for (let i=0; i<n; i++) {
         dice.roll()
     }
     return dice
