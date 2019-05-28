@@ -1,4 +1,5 @@
 // Yann CARDON 2019
+// Time of Legend, Joan of Arc dice rolls
 
 /** base class for dices */
 export abstract class Dice {
@@ -34,12 +35,12 @@ export abstract class Dice {
         return this
     }
 
-    toJSON() { // TODO
-        let dice = {type: this.constructor.name, result: {}}
+    /** convert the dice to an object */
+    toObject() {
+        let dice = {type: this.constructor.name, result: {} as any}
         Array.from(this.result, ([face, number]) => {
-        //    dice.result[face] = number
-        })  
-        console.debug(dice)
+            dice.result[face] = number
+        })
         return dice
     }
 
@@ -79,20 +80,17 @@ export class EmptyDice extends Dice {
     faces = []
 }
 
-
-// --- Time of Legend, Joan of Arc ---
-
 /** the different dice faces */
 export enum Face {
-    Kill = 'Tué',
-    Disrupt = 'Hors combat',
-    Push = 'Recul',
-    Shield = 'Bouclier',
-    Blank = 'Vide',
-    Trample = 'Piétinement',
-    Death = 'Mort',
-    Rally = 'Ralliement',
-    DelayedRally = 'Ralliement différé',
+    Kill = '• Tué',
+    Disrupt = '• Hors combat',
+    Push = '• Recul',
+    Shield = '• Bouclier',
+    Blank = '• Vide',
+    Trample = '• Piétinement',
+    Death = '• Mort',
+    Rally = '• Ralliement',
+    DelayedRally = '• Ralliement différé',
 }
 
 /** an array of all the dice faces */
