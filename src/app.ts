@@ -3,6 +3,8 @@
 
 import { Dice, EmptyDice, BlackDice, RedDice, YellowDice, WhiteDice, Face, GiganticDice, DoomDice } from "./dice";
 
+export const isFrenchUI = true
+
 /** parse CLI and roll dices */
 export function parseCLI(command: string[]) {
 
@@ -15,37 +17,53 @@ export function parseCLI(command: string[]) {
         let times = arg.slice(0, -1)
         switch (arg.slice(-1)) {
 
+            // defense switch
             case '-':
             case '/':
             case ':':
                 isDefence = true
                 break
 
+            // [N]oir
             case 'N':
             case 'n':
                 addAttackOrDefense(roll(new BlackDice, times))
                 break
 
+            // [R]ouge or [R]ed
             case 'R':
             case 'r':
                 addAttackOrDefense(roll(new RedDice, times))
                 break
 
+            // [J]aune or [Y]ellow
             case 'J':
             case 'j':
+            case 'Y':
+            case 'y':
                 addAttackOrDefense(roll(new YellowDice, times))
                 break
 
+            // [B]lanc or [B]lack
             case 'B':
             case 'b':
-                addAttackOrDefense(roll(new WhiteDice, times))
+                if (isFrenchUI) addAttackOrDefense(roll(new WhiteDice, times))
+                else addAttackOrDefense(roll(new BlackDice, times))
                 break
 
+            // [W]hite
+            case 'W':
+            case 'w':
+                addAttackOrDefense(roll(new WhiteDice, times))
+                break
+            
+            // [G]igantesque or [G]igantic
             case 'G':
             case 'g':
                 addAttackOrDefense(roll(new GiganticDice, times))
                 break
             
+            // [D]estin or [D]oom
             case 'D':
             case 'd':
                 addAttackOrDefense(roll(new DoomDice, times))
