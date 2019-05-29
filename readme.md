@@ -1,6 +1,6 @@
 # JoA Dices
 
-a CLI and a library for dice rolls in Time of Legends: Joan of Arc
+a CLI and a library for dice rolls in [Time of Legends: Joan of Arc](https://www.mythicgames.net/en/time-of-legends-joan-of-arc/)
 
 ## install
 

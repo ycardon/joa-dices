@@ -35,7 +35,7 @@ export abstract class Dice {
         return this
     }
 
-    /** convert the dice to an object */
+    /** convert the dice to an object, useful for logging */
     toObject() {
         let dice = {type: this.constructor.name, result: {} as any}
         Array.from(this.result, ([face, number]) => {
@@ -59,7 +59,7 @@ export abstract class Dice {
         return this
     }
 
-    /** lower the result @face value by the number of @shields then @returns the remaining shields */
+    /** lower the result @face value by the number of @shields then @return the remaining shields */
     private lower(face: Face, shields: number): number {
         let n = this.result.get(face)
         if (n)
@@ -82,15 +82,15 @@ export class EmptyDice extends Dice {
 
 /** the different dice faces */
 export enum Face {
-    Kill = '• Tué',
-    Disrupt = '• Hors combat',
-    Push = '• Recul',
-    Shield = '• Bouclier',
-    Blank = '• Vide',
-    Trample = '• Piétinement',
-    Death = '• Mort',
-    Rally = '• Ralliement',
-    DelayedRally = '• Ralliement différé',
+    Kill =          '• Tué',
+    Disrupt =       '• Hors combat',
+    Push =          '• Recul',
+    Shield =        '• Bouclier',
+    Blank =         '• Vide',
+    Trample =       '• Piétinement',
+    Death =         '• Mort',
+    Rally =         '• Ralliement',
+    DelayedRally =  '• Ralliement différé',
 }
 
 /** an array of all the dice faces */

@@ -57,12 +57,12 @@ export function parseCLI(command: string[]) {
         }
     })
 
-    console.log('attaque :', attack.toObject().result)
+    console.log('attaque', attack.toObject().result)
 
     if (isDefence) {
-        console.log('défense :', defence.toObject().result)
+        console.log('défense', defence.toObject().result)
         final.add(attack).applyDefense(defence).filter(Face.Blank).filter(Face.Shield)
-        console.log('> final :', final.toObject().result)    
+        console.log('> final', final.toObject().result)    
     }
 
     /** add the dice result either to attack or defence according to the CLI context */

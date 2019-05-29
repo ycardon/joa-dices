@@ -1,5 +1,6 @@
 "use strict";
 // Yann CARDON 2019
+// Time of Legend, Joan of Arc dice rolls
 Object.defineProperty(exports, "__esModule", { value: true });
 /** base class for dices */
 class Dice {
@@ -30,7 +31,7 @@ class Dice {
         console.debug(this.constructor.name, 'sum is', this.result);
         return this;
     }
-    /** convert the dice to an object */
+    /** convert the dice to an object, useful for logging */
     toObject() {
         let dice = { type: this.constructor.name, result: {} };
         Array.from(this.result, ([face, number]) => {
@@ -48,7 +49,7 @@ class Dice {
         this.lower(Face.Push, this.lower(Face.Disrupt, this.lower(Face.Kill, defence.result.get(Face.Shield) || 0)));
         return this;
     }
-    /** lower the result @face value by the number of @shields then @returns the remaining shields */
+    /** lower the result @face value by the number of @shields then @return the remaining shields */
     lower(face, shields) {
         let n = this.result.get(face);
         if (n)
@@ -72,7 +73,6 @@ class EmptyDice extends Dice {
     }
 }
 exports.EmptyDice = EmptyDice;
-// --- Time of Legend, Joan of Arc ---
 /** the different dice faces */
 var Face;
 (function (Face) {

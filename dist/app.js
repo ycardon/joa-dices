@@ -1,4 +1,6 @@
 "use strict";
+// Yann CARDON 2019
+// Time of Legend, Joan of Arc dice rolls
 Object.defineProperty(exports, "__esModule", { value: true });
 const dice_1 = require("./dice");
 /** parse CLI and roll dices */
@@ -44,11 +46,11 @@ function parseCLI(command) {
                 process.exit(-1);
         }
     });
-    console.log('attaque :', attack.toObject().result);
+    console.log('attaque', attack.toObject().result);
     if (isDefence) {
-        console.log('défense :', defence.toObject().result);
+        console.log('défense', defence.toObject().result);
         final.add(attack).applyDefense(defence).filter(dice_1.Face.Blank).filter(dice_1.Face.Shield);
-        console.log('> final :', final.toObject().result);
+        console.log('> final', final.toObject().result);
     }
     /** add the dice result either to attack or defence according to the CLI context */
     function addAttackOrDefense(dice) {
