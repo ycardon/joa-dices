@@ -6,12 +6,11 @@ var dice_1 = require("./dice");
 exports.isFrenchUI = true;
 /** parse CLI and roll dices */
 function parseCLI(command) {
-    var attack = new dice_1.EmptyDice;
-    var defence = new dice_1.EmptyDice;
-    var final = new dice_1.EmptyDice;
+    var attackDice = new Map;
+    var defenceDice = new Map;
     var isDefence = false;
     command.map(function (arg) {
-        var times = arg.slice(0, -1);
+        var times = parseInt(arg.slice(0, -1));
         switch (arg.slice(-1)) {
             // defense switch
             case '-':
@@ -22,68 +21,55 @@ function parseCLI(command) {
             // [N]oir
             case 'N':
             case 'n':
-                addAttackOrDefense(roll(new dice_1.BlackDice, times));
+                addAttackOrDefense(new dice_1.BlackDice, times);
                 break;
             // [R]ouge or [R]ed
             case 'R':
             case 'r':
-                addAttackOrDefense(roll(new dice_1.RedDice, times));
+                addAttackOrDefense(new dice_1.RedDice, times);
                 break;
             // [J]aune or [Y]ellow
             case 'J':
             case 'j':
             case 'Y':
             case 'y':
-                addAttackOrDefense(roll(new dice_1.YellowDice, times));
+                addAttackOrDefense(new dice_1.YellowDice, times);
                 break;
             // [B]lanc or [B]lack
             case 'B':
             case 'b':
                 if (exports.isFrenchUI)
-                    addAttackOrDefense(roll(new dice_1.WhiteDice, times));
+                    addAttackOrDefense(new dice_1.WhiteDice, times);
                 else
-                    addAttackOrDefense(roll(new dice_1.BlackDice, times));
+                    addAttackOrDefense(new dice_1.BlackDice, times);
                 break;
             // [W]hite
             case 'W':
             case 'w':
-                addAttackOrDefense(roll(new dice_1.WhiteDice, times));
+                addAttackOrDefense(new dice_1.WhiteDice, times);
                 break;
             // [G]igantesque or [G]igantic
             case 'G':
             case 'g':
-                addAttackOrDefense(roll(new dice_1.GiganticDice, times));
+                addAttackOrDefense(new dice_1.GiganticDice, times);
                 break;
             // [D]estin or [D]oom
             case 'D':
             case 'd':
-                addAttackOrDefense(roll(new dice_1.DoomDice, times));
+                addAttackOrDefense(new dice_1.DoomDice, times);
                 break;
             default:
                 console.error('bad syntax');
                 process.exit(-1);
         }
     });
-    console.log('attaque', attack.toObject().result);
-    if (isDefence) {
-        console.log('défense', defence.toObject().result);
-        final.add(attack).applyDefense(defence).filter(dice_1.Face.Blank).filter(dice_1.Face.Shield);
-        console.log('> final', final.toObject().result);
-    }
+    console.log(dice_1.attack(attackDice, defenceDice));
     /** add the dice result either to attack or defence according to the CLI context */
-    function addAttackOrDefense(dice) {
+    function addAttackOrDefense(dice, times) {
         if (isDefence)
-            defence.add(dice);
+            defenceDice.set(dice, times + (defenceDice.get(dice) || 0));
         else
-            attack.add(dice);
-    }
-    /** roll the given dice several times */
-    function roll(dice, timesAsString) {
-        var n = (timesAsString == '') ? 1 : parseInt(timesAsString);
-        for (var i = 0; i < n; i++) {
-            dice.roll();
-        }
-        return dice;
+            attackDice.set(dice, times + (attackDice.get(dice) || 0));
     }
 }
 exports.parseCLI = parseCLI;

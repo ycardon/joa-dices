@@ -1,5 +1,5 @@
 // Yann CARDON 2019
-// Time of Legend, Joan of Arc dice rolls
+// Times of Legend, Joan of Arc dice rolls
 
 /** base class for dices */
 export abstract class Dice {
@@ -10,12 +10,14 @@ export abstract class Dice {
     /** the different faces of the dice */
     abstract faces: Face[]
 
-    /** roll the dice once, if called multiple times then the results stack */
-    roll(): Dice {
-        let roll = this.faces[Math.floor(Math.random() * this.faces.length)]
-        if (roll) // if the dice has faces 
-            this.result.set(roll, (this.result.get(roll) || 0) + 1)
-        console.debug(this.constructor.name, 'rolled a', this.result)
+    /** roll the dice once (or n times), if called multiple times then the results stack */
+    roll(times = 1): Dice {
+        for (let i=0; i<times; i++) {
+            let roll = this.faces[Math.floor(Math.random() * this.faces.length)]
+            if (roll) // if the dice has faces
+                this.result.set(roll, (this.result.get(roll) || 0) + 1)
+                console.debug(this.constructor.name, 'rolled a', this.result)
+            }
         return this
     }
 
@@ -75,26 +77,50 @@ export abstract class Dice {
     }
 }
 
-/** an dice without faces, used for dice calculations */
-export class EmptyDice extends Dice {
-    faces = []
-}
-
 /** the different dice faces */
 export enum Face {
-    Kill =          '• Tué',
-    Disrupt =       '• Hors combat',
-    Push =          '• Recul',
-    Shield =        '• Bouclier',
-    Blank =         '• Vide',
-    Trample =       '• Piétinement',
-    Death =         '• Mort',
-    Rally =         '• Ralliement',
-    DelayedRally =  '• Ralliement différé',
+    Kill =          'kill',             // Tué
+    Disrupt =       'disrupt',          // Hors combat
+    Push =          'push',             // Recul
+    Shield =        'shield',           // Bouclier
+    Blank =         'blank',            // Vide
+    Trample =       'trample',          // Piétinement
+    Death =         'death',            // Mort
+    Rally =         'rally',            // Ralliement
+    DelayedRally =  'delayed rally',    // Ralliement différé
 }
 
 /** an array of all the dice faces */
 const Faces = Object.keys(Face).map(k => Face[k as any] as Face)
+
+/** common attack vs defence rolls */
+export function attack(attackDice: Map<Dice, number>, defenceDice: Map<Dice, number> = new Map): object {
+    let attack = new EmptyDice
+    let defence = new EmptyDice
+
+    Array.from(attackDice, ([dice, times]) => attack.add(dice.roll(times)))
+    Array.from(defenceDice, ([dice, times]) => defence.add(dice.roll(times)))
+
+    if (defenceDice.size == 0)
+        return {
+            attack: attack.toObject().result
+        }
+    else
+        return {
+            attack: attack.toObject().result,
+            defence: defence.toObject().result,
+            final: new EmptyDice()
+                .add(attack)
+                .applyDefense(defence)
+                .filter(Face.Blank).filter(Face.Shield)
+                .toObject().result
+        }
+}
+
+/** an dice without faces, used for dice calculations */
+export class EmptyDice extends Dice {
+    faces = []
+}
 
 /** a black combat dice */
 export class BlackDice extends Dice {

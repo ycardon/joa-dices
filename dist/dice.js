@@ -21,12 +21,15 @@ var Dice = /** @class */ (function () {
         /** the dice roll result */
         this.result = new Map;
     }
-    /** roll the dice once, if called multiple times then the results stack */
-    Dice.prototype.roll = function () {
-        var roll = this.faces[Math.floor(Math.random() * this.faces.length)];
-        if (roll) // if the dice has faces 
-            this.result.set(roll, (this.result.get(roll) || 0) + 1);
-        console.debug(this.constructor.name, 'rolled a', this.result);
+    /** roll the dice once (or n times), if called multiple times then the results stack */
+    Dice.prototype.roll = function (times) {
+        if (times === void 0) { times = 1; }
+        for (var i = 0; i < times; i++) {
+            var roll = this.faces[Math.floor(Math.random() * this.faces.length)];
+            if (roll) // if the dice has faces
+                this.result.set(roll, (this.result.get(roll) || 0) + 1);
+            console.debug(this.constructor.name, 'rolled a', this.result);
+        }
         return this;
     };
     /** reset the dice results */
@@ -81,6 +84,50 @@ var Dice = /** @class */ (function () {
     return Dice;
 }());
 exports.Dice = Dice;
+/** the different dice faces */
+var Face;
+(function (Face) {
+    Face["Kill"] = "kill";
+    Face["Disrupt"] = "disrupt";
+    Face["Push"] = "push";
+    Face["Shield"] = "shield";
+    Face["Blank"] = "blank";
+    Face["Trample"] = "trample";
+    Face["Death"] = "death";
+    Face["Rally"] = "rally";
+    Face["DelayedRally"] = "delayed rally";
+})(Face = exports.Face || (exports.Face = {}));
+/** an array of all the dice faces */
+var Faces = Object.keys(Face).map(function (k) { return Face[k]; });
+/** common attack vs defence rolls */
+function attack(attackDice, defenceDice) {
+    if (defenceDice === void 0) { defenceDice = new Map; }
+    var attack = new EmptyDice;
+    var defence = new EmptyDice;
+    Array.from(attackDice, function (_a) {
+        var dice = _a[0], times = _a[1];
+        return attack.add(dice.roll(times));
+    });
+    Array.from(defenceDice, function (_a) {
+        var dice = _a[0], times = _a[1];
+        return defence.add(dice.roll(times));
+    });
+    if (defenceDice.size == 0)
+        return {
+            attack: attack.toObject().result
+        };
+    else
+        return {
+            attack: attack.toObject().result,
+            defence: defence.toObject().result,
+            final: new EmptyDice()
+                .add(attack)
+                .applyDefense(defence)
+                .filter(Face.Blank).filter(Face.Shield)
+                .toObject().result
+        };
+}
+exports.attack = attack;
 /** an dice without faces, used for dice calculations */
 var EmptyDice = /** @class */ (function (_super) {
     __extends(EmptyDice, _super);
@@ -92,21 +139,6 @@ var EmptyDice = /** @class */ (function (_super) {
     return EmptyDice;
 }(Dice));
 exports.EmptyDice = EmptyDice;
-/** the different dice faces */
-var Face;
-(function (Face) {
-    Face["Kill"] = "\u2022 Tu\u00E9";
-    Face["Disrupt"] = "\u2022 Hors combat";
-    Face["Push"] = "\u2022 Recul";
-    Face["Shield"] = "\u2022 Bouclier";
-    Face["Blank"] = "\u2022 Vide";
-    Face["Trample"] = "\u2022 Pi\u00E9tinement";
-    Face["Death"] = "\u2022 Mort";
-    Face["Rally"] = "\u2022 Ralliement";
-    Face["DelayedRally"] = "\u2022 Ralliement diffe\u0301re\u0301";
-})(Face = exports.Face || (exports.Face = {}));
-/** an array of all the dice faces */
-var Faces = Object.keys(Face).map(function (k) { return Face[k]; });
 /** a black combat dice */
 var BlackDice = /** @class */ (function (_super) {
     __extends(BlackDice, _super);
