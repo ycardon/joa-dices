@@ -2,6 +2,8 @@
 
 a CLI and a library for dice rolls in [Time of Legends: Joan of Arc](https://www.mythicgames.net/en/time-of-legends-joan-of-arc/)
 
+![screenshot](./doc/screenshot.png)
+
 ## install
 
 ```
