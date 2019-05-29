@@ -1,11 +1,11 @@
 // Yann CARDON 2019
 // Times of Legend, Joan of Arc dice rolls
 
-import { Dice, EmptyDice, BlackDice, RedDice, YellowDice, WhiteDice, Face, GiganticDice, DoomDice, attack } from "./dice";
+import { BlackDice, RedDice, YellowDice, WhiteDice, GiganticDice, DoomDice, attack } from "./dice";
 
 export const isFrenchUI = true
 
-/** parse CLI and roll dices */
+/** CLI dice wrapper */
 export function parseCLI(command: string[]) {
 
     let attackDice = new Map

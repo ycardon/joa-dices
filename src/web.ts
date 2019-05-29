@@ -14,6 +14,7 @@ export function attackWeb(
     yellowDef: number,
     whiteDef: number,    
 ): string {
+    
     let attackDice = new Map
     attackDice.set(new BlackDice, blackAtt)
     attackDice.set(new RedDice, redAtt)
