@@ -1,0 +1,85 @@
+/* Grid layout */
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, auto); /* 10vw 30vw 30vw; */
+    grid-gap: 1em;
+}
+
+header,
+footer {
+    grid-column: 1 / span 2;
+}
+
+main {
+    grid-column: 1;
+}
+
+aside {
+    grid-column: span 1;
+}
+
+@media (max-width: 700px) {
+    main,
+    aside {
+        grid-column: 1 / span 2;
+    }
+}
+
+/* Margins and Padding */
+body {
+    margin: 0 auto;
+    max-width: 56em;
+    padding: 1em;
+}
+
+header,
+main,
+aside,
+footer {
+    background: rgb(201, 178, 148);
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center; 
+    justify-content: space-evenly;
+    padding: 1em
+}
+
+form {
+    text-align: right;
+}
+
+label {
+    margin-right: 0.3em;
+}
+
+input {
+    margin: 0.5em;
+}
+
+button {
+    border-radius: 1em;
+    padding: 0.5em;
+    font-size: 2em;
+    margin-right: 0.5em;
+    background-color: rgb(98, 80, 70);
+    color: white   
+}
+
+header {
+    height: 10vw;
+    background-image: url("joa-banner.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header p {
+    color: white;
+}
+
+main p,
+aside p {
+    margin-right: 1em;
+}
