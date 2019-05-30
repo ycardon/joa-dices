@@ -101,7 +101,7 @@ export function attack(attackDice: Map<Dice, number>, defenceDice: Map<Dice, num
     Array.from(attackDice, ([dice, times]) => attack.add(dice.roll(times)))
     Array.from(defenceDice, ([dice, times]) => defence.add(dice.roll(times)))
 
-    if (defenceDice.size == 0)
+    if (defence.result.size == 0)
         return {
             attack: attack.toObject().result
         }

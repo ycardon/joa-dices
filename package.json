@@ -1,20 +1,28 @@
 {
   "name": "joa-dices",
-  "version": "1.0.0",
-  "description": "a CLI and library for dice rolls in Time of Legends: Joan of Arc",
-  "main": "./bin/cli.js",
+  "version": "2.0.0",
+  "description": "a library, a CLI and a webapp for dice rolls in Time of Legends: Joan of Arc",
+  "main": "dist/dice.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "npm run clean ; parcel build src/index.html src/dice-cli.ts src/dice.ts",
+    "devweb": "parcel src/index.html",
+    "devcli": "parcel src/dice-cli.ts",
+    "clean": "rm -r dist/",
+    "start": "node dist/dice-cli.js"
   },
   "author": "Yann Cardon <ycardon@gmail.com>",
   "repository": "ycardon/joa-dices",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^12.0.2",
+    "@types/yaml": "^1.0.2",
+    "parcel-bundler": "^1.12.3",
     "typescript": "^3.4.5"
   },
   "bin": {
-    "joa-dice": "./bin/cli.js"
+    "joa-dice": "dist/dice-cli.js"
+  },
+  "dependencies": {
+    "yaml": "^1.6.0"
   }
 }

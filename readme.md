@@ -2,7 +2,7 @@
 
 a CLI and a library for dice rolls in [Time of Legends: Joan of Arc](https://www.mythicgames.net/en/time-of-legends-joan-of-arc/)
 
-![screenshot](./doc/screenshot.png)
+![screenshot](readme.png)
 
 ## install
 
@@ -28,7 +28,7 @@ for example:
 
 - `joa-dice 2R` is 2 red dices in attack
 
-- `joa-dice 2R 1J : 2N` is 2 red and 1 yellow dices in attack vs 2 black dices in defence, in that case the CLI is also calculating the net attack score by substracting defence shileds
+- `joa-dice 2R 1J : 2N` is 2 red and 1 yellow dices in attack vs 2 black dices in defence, in that case the CLI is also calculating the net attack score by substracting defence shields
 
 ## notes
 

@@ -3,7 +3,6 @@
 body {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, auto); /* 10vw 30vw 30vw; */
     grid-gap: 1em;
 }
 
@@ -69,7 +68,7 @@ button {
 
 header {
     height: 10vw;
-    background-image: url("joa-banner.jpg");
+    background-image: url("assets/banner.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
