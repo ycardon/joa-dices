@@ -1,8 +1,6 @@
 # JoA Dices
 
-a CLI and a library for dice rolls in [Time of Legends: Joan of Arc](https://www.mythicgames.net/en/time-of-legends-joan-of-arc/)
-
-![screenshot](readme.png)
+a library, a CLI and a webapp for dice rolls in [Time of Legends: Joan of Arc](https://www.mythicgames.net/en/time-of-legends-joan-of-arc/)
 
 ## install
 
@@ -11,6 +9,8 @@ npm install -g joa-dice
 ```
 
 ## usage
+
+![screenshot](readme-cli.png)
 
 ```
 joa-dice <attack dices> [: <defense dices>]
@@ -30,6 +30,6 @@ for example:
 
 - `joa-dice 2R 1J : 2N` is 2 red and 1 yellow dices in attack vs 2 black dices in defence, in that case the CLI is also calculating the net attack score by substracting defence shields
 
-## notes
+## webapp
 
-this CLI is French language oriented but quite easy to switch to any other language, I might do it if there is a demand.
+![screenshot](readme-web.png)
