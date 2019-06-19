@@ -4,9 +4,10 @@
   "description": "a library, a CLI and a webapp for dice rolls in Time of Legends: Joan of Arc",
   "main": "dist/dice.js",
   "scripts": {
-    "build": "npm run clean ; parcel build src/index.html src/dice-cli.ts src/dice.ts",
+    "build": "npm run clean ; parcel build src/index.html ; parcel build src/dice-cli.ts src/dice.ts --target node; npm run bangify",
+    "bangify": "gsed -i '1i\\#!/usr/bin/env node' dist/dice-cli.js",
     "devweb": "parcel src/index.html",
-    "devcli": "parcel src/dice-cli.ts",
+    "devcli": "parcel src/dice-cli.ts --target node ; npm run bangify",
     "clean": "rm -r dist/",
     "start": "node dist/dice-cli.js"
   },
@@ -14,15 +15,17 @@
   "repository": "ycardon/joa-dices",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^12.0.2",
+    "@types/node": "^12.0.8",
     "@types/yaml": "^1.0.2",
+    "cssnano": "^4.1.10",
     "parcel-bundler": "^1.12.3",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.2"
   },
   "bin": {
     "joa-dice": "dist/dice-cli.js"
   },
   "dependencies": {
+    "npm-check-updates": "^3.1.11",
     "yaml": "^1.6.0"
   }
 }

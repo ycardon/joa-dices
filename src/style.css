@@ -42,7 +42,10 @@ footer {
     display: flex;
     align-items: center; 
     justify-content: space-evenly;
-    padding: 1em
+    padding: 1em;
+    box-shadow:
+        -1px -1px bisque, 
+        1px 1px 0 black;
 }
 
 form {
@@ -51,6 +54,7 @@ form {
 
 label {
     margin-right: 0.3em;
+    text-shadow: 1px 1px 0 bisque;
 }
 
 input {
@@ -63,7 +67,8 @@ button {
     font-size: 2em;
     margin-right: 0.5em;
     background-color: rgb(98, 80, 70);
-    color: white   
+    color: white;
+
 }
 
 header {
@@ -88,4 +93,5 @@ header p {
 main p,
 aside p {
     margin-right: 1em;
+    text-shadow: 1px 1px 0 bisque
 }
