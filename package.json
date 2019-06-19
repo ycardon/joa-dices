@@ -1,6 +1,6 @@
 {
   "name": "joa-dices",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "a library, a CLI and a webapp for dice rolls in Time of Legends: Joan of Arc",
   "main": "dist/dice.js",
   "scripts": {
@@ -25,7 +25,6 @@
     "joa-dice": "dist/dice-cli.js"
   },
   "dependencies": {
-    "npm-check-updates": "^3.1.11",
     "yaml": "^1.6.0"
   }
 }
