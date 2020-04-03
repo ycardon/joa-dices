@@ -15,17 +15,13 @@
   "repository": "ycardon/joa-dices",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^12.6.8",
-    "@types/yaml": "^1.0.2",
-    "cssnano": "^4.1.10",
-    "parcel-bundler": "^1.12.3",
-    "typescript": "^3.5.3"
+    "typescript": "^3.8.3",
+    "parcel-bundler": "^1.12.4"
   },
   "bin": {
     "joa-dice": "dist/dice-cli.js"
   },
   "dependencies": {
-    "yaml": "^1.6.0",
-    "lodash": ">=4.17.14"
+    "yaml": "^1.8.3"
   }
 }
