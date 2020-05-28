@@ -3,17 +3,18 @@
 
 import { BlackDice, RedDice, YellowDice, WhiteDice, GiganticDice, DoomDice, attack, Dice } from "./dice";
 
-export const isFrenchUI = true
+const FRENCH_SYNTAX = true
+const DEBUG = false
 
 /** CLI dice wrapper */
-export function parseCLI(command: string[]) {
+function parseCLI(command: string[]) {
 
     let attackDice = new Map
     let defenceDice = new Map
     let isDefence = false
 
     command.map(arg => {
-        let times = parseInt(arg.slice(0, -1))
+        let times = parseInt(arg.slice(0, -1)) || 1
         switch (arg.slice(-1)) {
 
             // defense switch
@@ -46,7 +47,7 @@ export function parseCLI(command: string[]) {
             // [B]lanc or [B]lack
             case 'B':
             case 'b':
-                if (isFrenchUI) addAttackOrDefense(new WhiteDice, times)
+                if (FRENCH_SYNTAX) addAttackOrDefense(new WhiteDice, times)
                 else addAttackOrDefense(new BlackDice, times)
                 break
 
@@ -69,7 +70,7 @@ export function parseCLI(command: string[]) {
                 break
 
             default:
-                console.error('bad syntax')
+                console.error('bad syntax, example: 3R W - 2Y')
                 process.exit(-1)
         }
     })
@@ -84,7 +85,7 @@ export function parseCLI(command: string[]) {
 }
 
 // disable debug logs
-console.debug = (..._: any[]) => {}
+if (!DEBUG) console.debug = (..._: any[]) => {}
 
 // parse CLI and roll dices
 parseCLI(process.argv.slice(2))

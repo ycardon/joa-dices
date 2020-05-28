@@ -10,18 +10,18 @@ document.getElementById('roll').onclick = () => {
         return parseInt((document.getElementById(id) as HTMLInputElement).value) || 0
     }
 
-    let attackDice = new Map
-    attackDice.set(new BlackDice, value('black-att'))
-    attackDice.set(new RedDice, value('red-att'))
-    attackDice.set(new YellowDice, value('yellow-att'))
-    attackDice.set(new WhiteDice, value('white-att'))
+    let attackDices = new Map
+    attackDices.set(new BlackDice, value('black-att'))
+    attackDices.set(new RedDice, value('red-att'))
+    attackDices.set(new YellowDice, value('yellow-att'))
+    attackDices.set(new WhiteDice, value('white-att'))
 
-    let defenceDice = new Map
-    defenceDice.set(new BlackDice, value('black-def'))
-    defenceDice.set(new RedDice, value('red-def'))
-    defenceDice.set(new YellowDice, value('yellow-def'))
-    defenceDice.set(new WhiteDice, value('white-def'))
+    let defenceDices = new Map
+    defenceDices.set(new BlackDice, value('black-def'))
+    defenceDices.set(new RedDice, value('red-def'))
+    defenceDices.set(new YellowDice, value('yellow-def'))
+    defenceDices.set(new WhiteDice, value('white-def'))
 
-    document.getElementById('result').textContent = YAML.stringify(attack(attackDice, defenceDice))
+    document.getElementById('result').textContent = YAML.stringify(attack(attackDices, defenceDices))
 }
 
