@@ -2,6 +2,12 @@
 
 a library, a CLI and a webapp for dice rolls in [Time of Legends: Joan of Arc](https://www.mythicgames.net/en/time-of-legends-joan-of-arc/)
 
+I'm also using that project as a use-case for exploring dev in other languages
+- [Typescript](https://github.com/ycardon/joa-dices) (original)
+- [Rescript](https://github.com/ycardon/joa-dices-rescript)
+- [Haskell](https://github.com/ycardon/joa-dices-haskell)
+- [Rust](https://github.com/ycardon/joa-dices-rust)
+
 ## install
 
 ```
